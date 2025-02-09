@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,7 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', [NewsController::class, 'index'])->name('hacker-news.index');
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/list', [FrontendController::class, 'listPage']);
+Route::get('/detail', [FrontendController::class, 'detailPage']);
+
+Route::get('/news', [NewsController::class, 'index'])->name('hacker-news.index');
 Route::get('/story/{id}', [NewsController::class, 'show'])->name('hacker-news.show');
 Route::get('/{category?}/{page?}', [NewsController::class, 'index'])->name('hacker-news.index');
 
