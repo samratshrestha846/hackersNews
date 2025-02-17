@@ -3,6 +3,8 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,10 +18,6 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -31,7 +29,19 @@ Route::get('/list', [FrontendController::class, 'listPage']);
 Route::get('/detail', [FrontendController::class, 'detailPage']);
 
 Route::get('/news', [NewsController::class, 'index'])->name('hacker-news.index');
-Route::get('/story/{id}', [NewsController::class, 'show'])->name('hacker-news.show');
-Route::get('/{category?}/{page?}', [NewsController::class, 'index'])->name('hacker-news.index');
+Route::get('/news/story/{id}', [NewsController::class, 'show'])->name('hacker-news.show');
+Route::get('/news{category?}/{page?}', [NewsController::class, 'index'])->name('hacker-news.index');
+
+// Dashboard
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('users', UserController::class);
+
+Route::get('/users/{user}/reset-password', [ResetPasswordController::class, 'showResetPassword'])
+    ->name('users.reset-password');
+Route::post('/users/{user}/update-password', [ResetPasswordController::class, 'updatePassword'])
+    ->name('users.update-password');
 
 require __DIR__.'/auth.php';

@@ -1,26 +1,34 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Link } from "@inertiajs/react";
 
-export default function Dashboard() {
+export default function Dashboard({ children }) {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
+        <div className="flex">
+            {/* Sidebar */}
+            <aside className="w-64 bg-gray-800 text-white min-h-screen p-4">
+                <h2 className="text-xl font-bold mb-4">
+                    <Link
+                        href={route("dashboard")}
+                        className="block py-2 px-4 rounded hover:bg-gray-700"
+                    >
+                        Dashboard
+                    </Link>
                 </h2>
-            }
-        >
-            <Head title="Dashboard" />
+                <nav>
+                    <ul>
+                        <li className="mb-2">
+                            <Link
+                                href={route("users.index")}
+                                className="block py-2 px-4 rounded hover:bg-gray-700"
+                            >
+                                Users
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </AuthenticatedLayout>
+            {/* Main Content */}
+            <main className="flex-1 p-6 bg-gray-100">{children}</main>
+        </div>
     );
 }
