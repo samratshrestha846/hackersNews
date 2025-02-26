@@ -17,6 +17,16 @@ export default function Dashboard({ children }) {
                     <ul>
                         <li className="mb-2">
                             <Link
+                                href={route("categories.index")}
+                                className="block py-2 px-4 rounded hover:bg-gray-700"
+                            >
+                                Category
+                            </Link>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li className="mb-2">
+                            <Link
                                 href={route("profile.edit")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
