@@ -2,7 +2,7 @@ import Dashboard from "@/Pages/Dashboard";
 import { Link, usePage, router } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index({ users, search }) {
+export default function Index({ categories, search }) {
     const { flash } = usePage().props;
     const [query, setQuery] = useState(search || "");
 
@@ -11,22 +11,22 @@ export default function Index({ users, search }) {
         setQuery(newQuery);
 
         router.get(
-            route("users.index"),
+            route("categories.index"),
             { search: newQuery },
             { preserveState: true, replace: true }
         );
     };
 
     const handleDelete = (id) => {
-        if (confirm("Are you sure you want to delete this user?")) {
-            router.delete(route("users.destroy", id));
+        if (confirm("Are you sure you want to delete this category?")) {
+            router.delete(route("categories.destroy", id));
         }
     };
 
     return (
         <Dashboard>
             <div className="bg-white p-6 rounded-lg shadow-md">
-                <h1 className="text-2xl font-semibold mb-4">Users</h1>
+                <h1 className="text-2xl font-semibold mb-4">Categories</h1>
 
                 {flash?.success && (
                     <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
@@ -40,59 +40,57 @@ export default function Index({ users, search }) {
                             type="text"
                             value={query}
                             onChange={handleSearch}
-                            placeholder="Search users..."
+                            placeholder="Search category..."
                             className="border p-2 rounded w-full"
                         />
                     </div>
                     <Link
-                        href={route("users.create")}
+                        href={route("categories.create")}
                         className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
                     >
-                        + Add User
+                        + Add Category
                     </Link>
                 </div>
 
                 <table className="w-full bg-white shadow-md rounded-lg overflow-hidden">
                     <thead>
                         <tr className="bg-gray-200 text-left">
-                            <th className="p-3">Name</th>
-                            <th className="p-3">Email</th>
+                            <th className="p-3">Title</th>
+                            <th className="p-3">Slug</th>
+                            <th className="p-3">Is Active</th>
                             <th className="p-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.data.length > 0 ? (
-                            users.data.map((user) => (
+                        {categories.data.length > 0 ? (
+                            categories.data.map((category) => (
                                 <tr
-                                    key={user.id}
+                                    key={category.id}
                                     className="border-t hover:bg-gray-100"
                                 >
-                                    <td className="p-3">{user.name}</td>
-                                    <td className="p-3">{user.email}</td>
+                                    <td className="p-3">{category.title}</td>
+                                    <td className="p-3">{category.slug}</td>
+                                    <td className="p-3">
+                                        {category.is_active ? "Yes" : "No"}
+                                    </td>
                                     <td className="p-3 flex space-x-2">
                                         <Link
-                                            href={route("users.edit", user.id)}
+                                            href={route(
+                                                "categories.edit",
+                                                category.id
+                                            )}
                                             className="text-blue-500 hover:underline"
                                         >
                                             Edit
                                         </Link>
                                         <button
                                             onClick={() =>
-                                                handleDelete(user.id)
+                                                handleDelete(category.id)
                                             }
                                             className="text-red-500 hover:underline"
                                         >
                                             Delete
                                         </button>
-                                        <Link
-                                            href={route(
-                                                "users.reset-password",
-                                                user.id
-                                            )}
-                                            className="text-yellow-500 hover:underline"
-                                        >
-                                            Reset
-                                        </Link>
                                     </td>
                                 </tr>
                             ))
@@ -102,7 +100,7 @@ export default function Index({ users, search }) {
                                     colSpan="3"
                                     className="p-3 text-center text-gray-500"
                                 >
-                                    No users found.
+                                    No categories found.
                                 </td>
                             </tr>
                         )}
@@ -110,7 +108,7 @@ export default function Index({ users, search }) {
                 </table>
 
                 <div className="mt-4">
-                    {users.links.map((link) => (
+                    {categories.links.map((link) => (
                         <Link
                             key={link.label}
                             href={link.url}
