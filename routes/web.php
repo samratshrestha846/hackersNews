@@ -48,9 +48,9 @@ Route::prefix('/dashboard')->group(function(){
     Route::post('/users/{user}/update-password', [ResetPasswordController::class, 'updatePassword'])
         ->name('users.update-password');
 
-        Route::resource('categories', CategoryController::class);
-        Route::resource('tags', TagController::class);
-        Route::resource('news', NewsController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('tags', TagController::class);
+    Route::resource('news', NewsController::class);
 });
 
 require __DIR__.'/auth.php';
