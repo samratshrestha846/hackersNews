@@ -32,6 +32,14 @@ export default function Dashboard({ children }) {
                                 Tag
                             </Link>
                         </li>
+                        <li className="mb-2">
+                            <Link
+                                href={route("news.index")}
+                                className="block py-2 px-4 rounded hover:bg-gray-700"
+                            >
+                                News
+                            </Link>
+                        </li>
 
                         <li className="mb-2">
                             <Link
