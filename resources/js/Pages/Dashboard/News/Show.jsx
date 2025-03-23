@@ -4,7 +4,6 @@ import Dashboard from "@/Pages/Dashboard";
 
 const Show = () => {
     const { news } = usePage().props; // Assume the 'news' prop contains the news data from the backend
-    console.log(news);
     return (
         <Dashboard>
             <div className="bg-white rounded-lg shadow p-6">

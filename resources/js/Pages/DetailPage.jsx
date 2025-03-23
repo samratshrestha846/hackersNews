@@ -1,32 +1,29 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import Layout from "../Layouts/MainLayout";
+import moment from "moment";
+import Sidebar from "@/Layouts/Sidebar";
 
 export default function DetailPage() {
+    const { news } = usePage().props;
     return (
         <Layout>
-            <Head title="Detail Page" />
+            <Head title={`${news.title}-Singh IT`} />
             <>
                 {/* Breadcrumb */}
                 <div className="container">
                     <div className="headline bg0 flex-wr-sb-c p-rl-20 p-tb-8">
                         <div className="f2-s-1 p-r-30 m-tb-6">
-                            <a
-                                href="index.html"
-                                className="breadcrumb-item f1-s-3 cl9"
-                            >
+                            <a href="/" className="breadcrumb-item f1-s-3 cl9">
                                 Home
                             </a>
                             <a
-                                href="blog-list.html"
+                                href={`/category/${news.categories[0].slug}`}
                                 className="breadcrumb-item f1-s-3 cl9"
                             >
-                                Blog
+                                {news.categories[0].title}
                             </a>
-                            <span className="breadcrumb-item f1-s-3 cl9">
-                                Nulla non interdum metus non laoreet nisi tellus
-                                eget aliquam lorem pellentesque
-                            </span>
+                            <span className="breadcrumb-item f1-s-3 cl9"></span>
                         </div>
                         <div className="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
                             <input
@@ -48,22 +45,20 @@ export default function DetailPage() {
                         <div className="row justify-content-center">
                             <div className="col-md-10 col-lg-8 p-b-30">
                                 <div className="p-r-10 p-r-0-sr991">
-                                    {/* Blog Detail */}
+                                    {/* News Detail */}
                                     <div className="p-b-70">
                                         <a
                                             href="#"
                                             className="f1-s-10 cl2 hov-cl10 trans-03 text-uppercase"
                                         >
-                                            Technology
+                                            {news.categories[0].slug}
                                         </a>
                                         <h3 className="f1-l-3 cl2 p-b-16 p-t-33 respon2">
-                                            Nulla non interdum metus non laoreet
-                                            nisi tellus eget aliquam lorem
-                                            pellentesque
+                                            {news.title}
                                         </h3>
                                         <div className="flex-wr-s-s p-b-40">
                                             <span className="f1-s-3 cl8 m-r-15">
-                                                <a
+                                                {/* <a
                                                     href="#"
                                                     className="f1-s-4 cl8 hov-cl10 trans-03"
                                                 >
@@ -71,103 +66,56 @@ export default function DetailPage() {
                                                 </a>
                                                 <span className="m-rl-3">
                                                     -
+                                                </span> */}
+                                                <span>
+                                                    {moment(
+                                                        news.updated_at
+                                                    ).fromNow()}
                                                 </span>
-                                                <span>Feb 18</span>
                                             </span>
-                                            <span className="f1-s-3 cl8 m-r-15">
+                                            {/* <span className="f1-s-3 cl8 m-r-15">
                                                 5239 Views
-                                            </span>
-                                            <a
+                                            </span> */}
+                                            {/* <a
                                                 href="#"
                                                 className="f1-s-3 cl8 hov-cl10 trans-03 m-r-15"
                                             >
                                                 0 Comment
-                                            </a>
+                                            </a> */}
                                         </div>
 
                                         <div className="wrap-pic-max-w p-b-30">
                                             <img
-                                                src="images/blog-list-01.jpg"
-                                                alt="IMG"
+                                                src={news.image_url}
+                                                alt={news.title}
                                             />
                                         </div>
 
-                                        <p className="f1-s-11 cl6 p-b-25">
-                                            Curabitur volutpat bibendum
-                                            molestie. Vestibulum ornare gravida
-                                            semper. Aliquam a dui suscipit,
-                                            fringilla metus id, maximus leo.
-                                            Vivamus sapien arcu, mollis eu
-                                            pharetra vitae, condimentum in orci.
-                                            Integer eu sodales dolor. Maecenas
-                                            elementum arcu eu convallis rhoncus.
-                                            Donec tortor sapien, euismod a
-                                            faucibus eget, porttitor quis
-                                            libero.
-                                        </p>
-
-                                        <p className="f1-s-11 cl6 p-b-25">
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit. Nunc
-                                            sit amet est vel orci luctus
-                                            sollicitudin. Duis eleifend
-                                            vestibulum justo, varius semper
-                                            lacus condimentum dictum. Donec
-                                            pulvinar a magna ut malesuada. In
-                                            posuere felis diam, vel sodales
-                                            metus accumsan in. Duis viverra dui
-                                            eu pharetra pellentesque. Donec a
-                                            eros leo. Quisque sed ligula vitae
-                                            lorem efficitur faucibus. Praesent
-                                            sit amet imperdiet ante. Nulla id
-                                            tellus auctor, dictum libero a,
-                                            malesuada nisi. Nulla in porta nibh,
-                                            id vestibulum ipsum. Praesent
-                                            dapibus tempus erat quis aliquet.
-                                            Donec ac purus id sapien condimentum
-                                            feugiat.
-                                        </p>
-
-                                        <p className="f1-s-11 cl6 p-b-25">
-                                            Praesent vel mi bibendum, finibus
-                                            leo ac, condimentum arcu.
-                                            Pellentesque sem ex, tristique sit
-                                            amet suscipit in, mattis imperdiet
-                                            enim. Integer tempus justo nec velit
-                                            fringilla, eget eleifend neque
-                                            blandit. Sed tempor magna sed congue
-                                            auctor. Mauris eu turpis eget tortor
-                                            ultricies elementum. Phasellus vel
-                                            placerat orci, a venenatis justo.
-                                            Phasellus faucibus venenatis nisl
-                                            vitae vestibulum. Praesent id nibh
-                                            arcu. Vivamus sagittis accumsan
-                                            felis, quis vulputate
-                                        </p>
-
+                                        <div
+                                            className="text-gray-600"
+                                            dangerouslySetInnerHTML={{
+                                                __html: news.description,
+                                            }}
+                                        />
                                         {/* Tag */}
                                         <div className="flex-s-s p-t-12 p-b-15">
                                             <span className="f1-s-12 cl5 m-r-8">
                                                 Tags:
                                             </span>
                                             <div className="flex-wr-s-s size-w-0">
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-12 cl8 hov-link1 m-r-15"
-                                                >
-                                                    Vulnerabilities
-                                                </a>
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-12 cl8 hov-link1 m-r-15"
-                                                >
-                                                    Technology
-                                                </a>
+                                                {news.tags.map((tag) => (
+                                                    <a
+                                                        href="#"
+                                                        className="f1-s-12 cl8 hov-link1 m-r-15"
+                                                    >
+                                                        {tag.title}
+                                                    </a>
+                                                ))}
                                             </div>
                                         </div>
 
                                         {/* Share */}
-                                        <div className="flex-s-s">
+                                        {/* <div className="flex-s-s">
                                             <span className="f1-s-12 cl5 p-t-1 m-r-15">
                                                 Share:
                                             </span>
@@ -201,11 +149,11 @@ export default function DetailPage() {
                                                     Pinterest
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     {/* Leave a comment */}
-                                    <div>
+                                    {/* <div>
                                         <h4 className="f1-l-4 cl3 p-b-12">
                                             Leave a Comment
                                         </h4>
@@ -243,113 +191,12 @@ export default function DetailPage() {
                                                 Post Comment
                                             </button>
                                         </form>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
 
                             {/* Sidebar */}
-                            <div className="col-md-10 col-lg-4 p-b-30">
-                                <div className="p-l-10 p-rl-0-sr991 p-t-70">
-                                    {/* Category */}
-                                    <div className="p-b-60">
-                                        <div className="how2 how2-cl4 flex-s-c">
-                                            <h3 className="f1-m-2 cl3">
-                                                Categories
-                                            </h3>
-                                        </div>
-                                        <ul className="p-t-35">
-                                            <li className="p-b-10">
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-13 cl8 hov-cl10 trans-03"
-                                                >
-                                                    Technology
-                                                </a>
-                                            </li>
-                                            <li className="p-b-10">
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-13 cl8 hov-cl10 trans-03"
-                                                >
-                                                    Lifestyle
-                                                </a>
-                                            </li>
-                                            <li className="p-b-10">
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-13 cl8 hov-cl10 trans-03"
-                                                >
-                                                    Health
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    {/* Popular Post */}
-                                    <div className="p-b-60">
-                                        <div className="how2 how2-cl4 flex-s-c">
-                                            <h3 className="f1-m-2 cl3">
-                                                Popular Post
-                                            </h3>
-                                        </div>
-                                        <ul className="p-t-35">
-                                            <li className="flex-wr-sb-s p-b-30">
-                                                <a
-                                                    href="#"
-                                                    className="size-w-2 how-pos5-parent"
-                                                >
-                                                    <img
-                                                        src="images/popular-post-01.jpg"
-                                                        alt="IMG"
-                                                    />
-                                                </a>
-                                                <div className="size-w-3">
-                                                    <h6 className="p-b-5">
-                                                        <a
-                                                            href="#"
-                                                            className="f1-s-5 cl3 hov-cl10 trans-03"
-                                                        >
-                                                            Lorem ipsum dolor
-                                                            sit amet,
-                                                            consectetur
-                                                            adipiscing elit
-                                                        </a>
-                                                    </h6>
-                                                    <span className="f1-s-3 cl8">
-                                                        <a
-                                                            href="#"
-                                                            className="f1-s-3 cl8 hov-cl10 trans-03"
-                                                        >
-                                                            by John Alvarado
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    {/* Tag */}
-                                    <div className="p-b-60">
-                                        <div className="how2 how2-cl4 flex-s-c">
-                                            <h3 className="f1-m-2 cl3">Tags</h3>
-                                        </div>
-                                        <div className="flex-wr-s-s size-w-0 p-t-35">
-                                            <a
-                                                href="#"
-                                                className="f1-s-12 cl8 hov-link1 m-r-15"
-                                            >
-                                                Technology
-                                            </a>
-                                            <a
-                                                href="#"
-                                                className="f1-s-12 cl8 hov-link1 m-r-15"
-                                            >
-                                                Design
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Sidebar />
                         </div>
                     </div>
                 </section>

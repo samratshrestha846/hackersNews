@@ -1,6 +1,8 @@
 import React from "react";
+import { usePage } from "@inertiajs/react";
 
 export default function Header({ children }) {
+    const { categories } = usePage().props;
     return (
         <header>
             {/* Header desktop */}
@@ -10,10 +12,7 @@ export default function Header({ children }) {
                     {/* Logo mobile */}
                     <div className="logo-mobile">
                         <a href="/">
-                            <img
-                                src="images/icons/logo-01.png"
-                                alt="Company Logo"
-                            />
+                            <img src="/images/logo.png" alt="Company Logo" />
                         </a>
                     </div>
 
@@ -28,12 +27,14 @@ export default function Header({ children }) {
                 {/* Menu Mobile */}
                 <div className="menu-mobile">
                     <ul className="main-menu-m">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="/list">News</a>
-                        </li>
+                        {categories &&
+                            categories.map((category) => (
+                                <li key={category.id}>
+                                    <a href={`/category/${category.slug}`}>
+                                        {category.title}
+                                    </a>
+                                </li>
+                            ))}
                         <li>
                             <a href="/news">Hackers News</a>
                         </li>
@@ -44,7 +45,7 @@ export default function Header({ children }) {
                 <div className="wrap-logo container">
                     <div className="logo">
                         <a href="/">
-                            <img src="images/logo.png" alt="Company Logo" />
+                            <img src="/images/logo.png" alt="Company Logo" />
                         </a>
                     </div>
                 </div>
@@ -54,16 +55,23 @@ export default function Header({ children }) {
                     <div className="main-nav">
                         <nav className="menu-desktop">
                             <a className="logo-stick" href="/">
-                                <img src="images/logo.png" alt="Company Logo" />
+                                <img
+                                    src="/images/logo.png"
+                                    alt="Company Logo"
+                                />
                             </a>
 
                             <ul className="main-menu">
-                                <li>
-                                    <a href="/">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/list">News</a>
-                                </li>
+                                {categories &&
+                                    categories.map((category) => (
+                                        <li key={category.id}>
+                                            <a
+                                                href={`/category/${category.slug}`}
+                                            >
+                                                {category.title}
+                                            </a>
+                                        </li>
+                                    ))}
                                 <li>
                                     <a href="/news">Hackers News</a>
                                 </li>

@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -28,8 +27,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/list', [FrontendController::class, 'listPage']);
-Route::get('/detail', [FrontendController::class, 'detailPage']);
+Route::get('/category/{slug}', [FrontendController::class, 'listPage']);
+Route::get('/news/{slug}', [FrontendController::class, 'detailPage']);
 
 Route::get('/news', [HackersNewsController::class, 'index'])->name('hacker-news.index');
 Route::get('/news/story/{id}', [HackersNewsController::class, 'show'])->name('hacker-news.show');
