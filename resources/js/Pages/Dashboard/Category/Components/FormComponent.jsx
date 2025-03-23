@@ -21,6 +21,7 @@ export default function FormComponent({ data, setData, errors }) {
 
                 <input
                     type="checkbox"
+                    className="border border-black"
                     checked={data.is_active}
                     onChange={(e) => setData("is_active", e.target.checked)}
                 />

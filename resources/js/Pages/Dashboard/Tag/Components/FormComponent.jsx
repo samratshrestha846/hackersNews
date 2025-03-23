@@ -16,6 +16,16 @@ export default function FormComponent({ data, setData, errors }) {
                     <p className="text-red-500 text-sm mt-1">{errors.title}</p>
                 )}
             </div>
+            <div>
+                <label className="block font-medium">Active</label>
+
+                <input
+                    type="checkbox"
+                    className="border border-black"
+                    checked={data.is_active}
+                    onChange={(e) => setData("is_active", e.target.checked)}
+                />
+            </div>
         </>
     );
 }
