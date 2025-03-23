@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Category;
+use App\Models\News;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
@@ -30,6 +33,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $categories = Category::where('is_active', 1)->get();
+        $featuredNews = News::inRandomOrder()->where('is_active', 1)->where('is_featured', 1)->take(5)->get();
+        $tags = Tag::inRandomOrder()->where('is_active', 1)->take(5)->get();
+        $footerCategories = Category::where('is_active', 1)->take(5)->get();
         return [
             ...parent::share($request),
             'auth' => [
@@ -39,6 +46,10 @@ class HandleInertiaRequests extends Middleware
                 'success' => Session::get('success'),
                 'error' => Session::get('error'),
             ],
+            'categories' => $categories,
+            'featuredNews' => $featuredNews,
+            'tags' => $tags,
+            'footerCategories' => $footerCategories
         ];
     }
 }

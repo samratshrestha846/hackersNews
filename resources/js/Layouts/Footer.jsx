@@ -1,7 +1,10 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
+import moment from "moment";
 import React from "react";
 
 export default function Footer() {
+    const { featuredNews, footerCategories } = usePage().props;
+
     return (
         <footer>
             <div className="bg2 p-t-40 p-b-25">
@@ -13,7 +16,7 @@ export default function Footer() {
                                 <Link to="/">
                                     <img
                                         className="max-s-full"
-                                        src="images/logo.png"
+                                        src="/images/logo.png"
                                         alt="Company Logo"
                                     />
                                 </Link>
@@ -74,41 +77,42 @@ export default function Footer() {
                             </div>
 
                             <ul>
-                                {[1, 2, 3].map((post, index) => (
-                                    <li
-                                        key={index}
-                                        className="flex-wr-sb-s p-b-20"
-                                    >
-                                        <a
-                                            href="#"
-                                            className="size-w-4 wrap-pic-w hov1 trans-03"
+                                {featuredNews && featuredNews.length > 0 ? (
+                                    featuredNews.map((news, index) => (
+                                        <li
+                                            key={news.id}
+                                            className="flex-wr-sb-s p-b-20"
                                         >
-                                            <img
-                                                src={`images/popular-post-0${post}.jpg`}
-                                                alt={`Popular post ${post}`}
-                                            />
-                                        </a>
+                                            <a
+                                                href={`/news/${news.slug}`}
+                                                className="size-w-4 wrap-pic-w hov1 trans-03"
+                                            >
+                                                <img
+                                                    src={news.image_url}
+                                                    alt={news.title}
+                                                />
+                                            </a>
 
-                                        <div className="size-w-5">
-                                            <h6 className="p-b-5">
-                                                <a
-                                                    href="#"
-                                                    className="f1-s-5 cl11 hov-cl10 trans-03"
-                                                >
-                                                    {post === 1 &&
-                                                        "Donec metus orci, malesuada et lectus vitae"}
-                                                    {post === 2 &&
-                                                        "Lorem ipsum dolor sit amet, consectetur"}
-                                                    {post === 3 &&
-                                                        "Suspendisse dictum enim quis imperdiet auctor"}
-                                                </a>
-                                            </h6>
-                                            <span className="f1-s-3 cl6">{`Feb ${
-                                                18 - post
-                                            }`}</span>
-                                        </div>
-                                    </li>
-                                ))}
+                                            <div className="size-w-5">
+                                                <h6 className="p-b-5">
+                                                    <a
+                                                        href={`/news/${news.slug}`}
+                                                        className="f1-s-5 cl11 hov-cl10 trans-03"
+                                                    >
+                                                        {news.title}
+                                                    </a>
+                                                </h6>
+                                                <span className="f1-s-3 cl6">
+                                                    {moment(
+                                                        news.updated_at
+                                                    ).fromNow()}
+                                                </span>
+                                            </div>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p>No popular news available.</p>
+                                )}
                             </ul>
                         </div>
 
@@ -119,24 +123,24 @@ export default function Footer() {
                             </div>
 
                             <ul className="m-t--12">
-                                {[
-                                    "Cyber Security (22)",
-                                    "Webinars (29)",
-                                    "Vulnerabilities (15)",
-                                    "Expert Insights (28)",
-                                ].map((category, index) => (
-                                    <li
-                                        key={index}
-                                        className="how-bor1 p-rl-5 p-tb-10"
-                                    >
-                                        <a
-                                            href="#"
-                                            className="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8"
+                                {footerCategories &&
+                                footerCategories.length > 0 ? (
+                                    footerCategories.map((category, index) => (
+                                        <li
+                                            key={category.id}
+                                            className="how-bor1 p-rl-5 p-tb-10"
                                         >
-                                            {category}
-                                        </a>
-                                    </li>
-                                ))}
+                                            <Link
+                                                to={`/category/${category.slug}`}
+                                                className="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8"
+                                            >
+                                                {category.title}
+                                            </Link>
+                                        </li>
+                                    ))
+                                ) : (
+                                    <p>No categories available.</p>
+                                )}
                             </ul>
                         </div>
                     </div>
