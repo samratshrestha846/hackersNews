@@ -60,7 +60,7 @@ export default function Sidebar() {
                     <div className="flex-wr-s-s m-rl--5">
                         {tags.map((tag) => (
                             <a
-                                href="#"
+                                href={`/tag/${tag.slug}`}
                                 className="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5"
                             >
                                 {tag.title}

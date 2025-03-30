@@ -5,6 +5,7 @@ import FormComponent from "./Components/FormComponent";
 export default function CreateNews({ categories, tags }) {
     const { data, setData, post, errors } = useForm({
         title: "",
+        score: "",
         image: "",
         is_active: false,
         is_featured: false,

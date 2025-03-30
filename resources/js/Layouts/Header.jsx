@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePage } from "@inertiajs/react";
 
 export default function Header({ children }) {
-    const { categories } = usePage().props;
+    const { categories = [] } = usePage().props; // Ensure categories is always an array
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Track menu state
+
+    // Toggle menu function
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <header>
             {/* Header desktop */}
@@ -17,24 +24,28 @@ export default function Header({ children }) {
                     </div>
 
                     {/* Button show menu */}
-                    <div className="btn-show-menu-mobile hamburger hamburger--squeeze m-r--8">
+                    <button
+                        className={`btn-show-menu-mobile hamburger hamburger--squeeze m-r--8 ${
+                            isMenuOpen ? "is-active" : ""
+                        }`}
+                        onClick={toggleMenu}
+                    >
                         <span className="hamburger-box">
                             <span className="hamburger-inner"></span>
                         </span>
-                    </div>
+                    </button>
                 </div>
 
                 {/* Menu Mobile */}
-                <div className="menu-mobile">
+                <div className={`menu-mobile ${isMenuOpen ? "show-menu" : ""}`}>
                     <ul className="main-menu-m">
-                        {categories &&
-                            categories.map((category) => (
-                                <li key={category.id}>
-                                    <a href={`/category/${category.slug}`}>
-                                        {category.title}
-                                    </a>
-                                </li>
-                            ))}
+                        {categories.map((category) => (
+                            <li key={category.id}>
+                                <a href={`/category/${category.slug}`}>
+                                    {category.title}
+                                </a>
+                            </li>
+                        ))}
                         <li>
                             <a href="/news">Hackers News</a>
                         </li>
@@ -62,16 +73,13 @@ export default function Header({ children }) {
                             </a>
 
                             <ul className="main-menu">
-                                {categories &&
-                                    categories.map((category) => (
-                                        <li key={category.id}>
-                                            <a
-                                                href={`/category/${category.slug}`}
-                                            >
-                                                {category.title}
-                                            </a>
-                                        </li>
-                                    ))}
+                                {categories.map((category) => (
+                                    <li key={category.id}>
+                                        <a href={`/category/${category.slug}`}>
+                                            {category.title}
+                                        </a>
+                                    </li>
+                                ))}
                                 <li>
                                     <a href="/news">Hackers News</a>
                                 </li>
