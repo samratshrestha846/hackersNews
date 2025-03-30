@@ -56,7 +56,12 @@ export default function LatestPost({ children }) {
                                                 </div>
 
                                                 <p className="f1-s-1 cl6 p-b-24">
-                                                    {news.short_description}
+                                                    <div
+                                                        className="text-gray-600"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: news.short_description,
+                                                        }}
+                                                    />{" "}
                                                 </p>
 
                                                 <a

@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/category/{slug}', [FrontendController::class, 'listPage']);
+Route::get('/tag/{slug}', [FrontendController::class, 'tagListPage']);
+Route::get('/search', [FrontendController::class, 'searchListPage']);
 Route::get('/news/{slug}', [FrontendController::class, 'detailPage']);
 
 Route::get('/news', [HackersNewsController::class, 'index'])->name('hacker-news.index');

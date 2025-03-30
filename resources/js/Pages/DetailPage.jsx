@@ -3,6 +3,7 @@ import { Head, usePage } from "@inertiajs/react";
 import Layout from "../Layouts/MainLayout";
 import moment from "moment";
 import Sidebar from "@/Layouts/Sidebar";
+import Search from "@/Components/Search";
 
 export default function DetailPage() {
     const { news } = usePage().props;
@@ -25,17 +26,7 @@ export default function DetailPage() {
                             </a>
                             <span className="breadcrumb-item f1-s-3 cl9"></span>
                         </div>
-                        <div className="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
-                            <input
-                                className="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45"
-                                type="text"
-                                name="search"
-                                placeholder="Search"
-                            />
-                            <button className="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
-                                <i className="zmdi zmdi-search"></i>
-                            </button>
-                        </div>
+                        <Search />
                     </div>
                 </div>
 
@@ -48,7 +39,7 @@ export default function DetailPage() {
                                     {/* News Detail */}
                                     <div className="p-b-70">
                                         <a
-                                            href="#"
+                                            href={`/category/${news.categories[0].slug}`}
                                             className="f1-s-10 cl2 hov-cl10 trans-03 text-uppercase"
                                         >
                                             {news.categories[0].slug}
@@ -67,6 +58,13 @@ export default function DetailPage() {
                                                 <span className="m-rl-3">
                                                     -
                                                 </span> */}
+
+                                                <div className="cl8 p-b-18">
+                                                    <span className="f1-s-3">
+                                                        Score: {news.score ?? 0}
+                                                    </span>
+                                                </div>
+
                                                 <span>
                                                     {moment(
                                                         news.updated_at
@@ -105,7 +103,7 @@ export default function DetailPage() {
                                             <div className="flex-wr-s-s size-w-0">
                                                 {news.tags.map((tag) => (
                                                     <a
-                                                        href="#"
+                                                        href={`/tag/${tag.slug}`}
                                                         className="f1-s-12 cl8 hov-link1 m-r-15"
                                                     >
                                                         {tag.title}

@@ -33,6 +33,21 @@ export default function FormComponent({
                 )}
             </div>
 
+            {/* Score */}
+            <div>
+                <label className="block font-medium">Score</label>
+                <input
+                    type="number"
+                    value={data.score}
+                    onChange={(e) => setData("score", e.target.value)}
+                    className="w-full p-2 border rounded"
+                    required
+                />
+                {errors.score && (
+                    <p className="text-red-500 text-sm mt-1">{errors.score}</p>
+                )}
+            </div>
+
             {/* Image Upload */}
             <div>
                 <label className="block font-medium">Image</label>

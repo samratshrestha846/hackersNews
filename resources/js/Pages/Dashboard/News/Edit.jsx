@@ -6,6 +6,7 @@ export default function EditNews({ news, categories, tags }) {
     console.log(news.categories);
     const { data, setData, post, errors } = useForm({
         title: news.title,
+        score: news.score,
         image: "",
         is_active: news.is_active,
         is_featured: news.is_featured,

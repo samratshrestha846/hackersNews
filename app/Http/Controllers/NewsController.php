@@ -15,7 +15,8 @@ class NewsController extends Controller
     {
         $search = $request->query('search');
         $news = News::when($search, function ($query, $search) {
-                return $query->where('title', 'like', "%{$search}%");
+                return $query->where('title', 'like', "%{$search}%")
+                ->orWhere('score', 'like', "%{$search}%");
             })
             ->latest()
             ->paginate(10)
@@ -46,6 +47,7 @@ class NewsController extends Controller
             'description' => 'required|string',
             'categories' => 'required|array',
             'tags' => 'required|array',
+            'score' => 'required|numeric'
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);
@@ -88,6 +90,7 @@ class NewsController extends Controller
             'description' => 'required|string',
             'categories' => 'required|array',
             'tags' => 'required|array',
+            'score' => 'required|numeric'
         ]);
 
         $validated['slug'] = Str::slug($validated['title']);

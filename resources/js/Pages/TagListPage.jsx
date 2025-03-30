@@ -5,17 +5,17 @@ import moment from "moment";
 import Sidebar from "@/Layouts/Sidebar";
 import Search from "@/Components/Search";
 
-export default function CategoryNewsPage() {
-    const { news, pagination, category } = usePage().props;
+export default function TagNewsPage() {
+    const { news, pagination, tag } = usePage().props;
 
     // Handle page change
     const handlePageChange = (page) => {
-        router.visit(`/category/${category.slug}?page=${page}`);
+        router.visit(`/tag/${tag.slug}?page=${page}`);
     };
 
     return (
         <Layout>
-            <Head title={category.title} />
+            <Head title={tag.title} />
 
             {/* Breadcrumb  */}
             <div className="container">

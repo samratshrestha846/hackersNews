@@ -20,50 +20,59 @@ class HackersNewsController extends Controller
             'new' => 'newstories',
         ];
 
-        // Default to 'top' category if invalid category provided
         if (!array_key_exists($category, $categoryEndpoints)) {
             $category = 'top';
         }
 
-        // Fetch story IDs from the API
-        $response = Http::get("{$this->baseUrl}/{$categoryEndpoints[$category]}.json");
+        // Cache key for category stories
+        $cacheKey = "hackernews_category_{$category}";
 
-        // Check for error in response
-        if ($response->failed()) {
-            // Handle the error, e.g., log or return a user-friendly message
-            return response()->json(['error' => 'Failed to fetch stories from the API. Please try again later.'], 500);
-        }
+        // Try to get from cache
+        $storyIds = Cache::get($cacheKey);
 
-        // Proceed if the response is successful
-        $storyIds = $response->json();
+        if (!$storyIds) {
+            $response = Http::get("{$this->baseUrl}/{$categoryEndpoints[$category]}.json");
 
-        // Total number of stories available (for pagination calculation)
-        $totalStories = count($storyIds);
-
-        // Paginate story IDs
-        $paginatedIds = array_slice($storyIds, ($page - 1) * $pageSize, $pageSize);
-
-        // Fetch story details
-        $stories = collect($paginatedIds)->map(function ($id) {
-            $storyResponse = Http::get("{$this->baseUrl}/item/{$id}.json");
-
-            // Check for error in the story response
-            if ($storyResponse->failed()) {
-                // Handle the error, e.g., log or return a default response
-                return [
-                    'id' => $id,
-                    'title' => 'Error fetching story',
-                    'url' => null,
-                    'by' => 'Anonymous',
-                    'score' => 0,
-                    'time' => null,
-                ];
+            if ($response->failed()) {
+                return response()->json(['error' => 'Failed to fetch stories.'], 500);
             }
 
-            $story = $storyResponse->json();
+            $storyIds = $response->json();
+
+            // Store in cache for 1 day
+            Cache::put($cacheKey, $storyIds, now()->addDay());
+        }
+
+        $totalStories = count($storyIds);
+        $paginatedIds = array_slice($storyIds, ($page - 1) * $pageSize, $pageSize);
+
+        $stories = collect($paginatedIds)->map(function ($id) {
+            $cacheKey = "hackernews_story_{$id}";
+
+            $story = Cache::get($cacheKey);
+
+            if (!$story) {
+                $storyResponse = Http::get("{$this->baseUrl}/item/{$id}.json");
+
+                if ($storyResponse->failed()) {
+                    return [
+                        'id' => $id,
+                        'title' => 'Error fetching story',
+                        'url' => null,
+                        'by' => 'Anonymous',
+                        'score' => 0,
+                        'time' => null,
+                    ];
+                }
+
+                $story = $storyResponse->json();
+
+                // Cache story for 1 day
+                Cache::put($cacheKey, $story, now()->addDay());
+            }
 
             return [
-                'id' => $id,
+                'id' => $story['id'] ?? $id,
                 'title' => $story['title'] ?? 'Untitled',
                 'url' => $story['url'] ?? null,
                 'by' => $story['by'] ?? 'Anonymous',
