@@ -58,6 +58,13 @@ export default function DetailPage() {
                                                 <span className="m-rl-3">
                                                     -
                                                 </span> */}
+
+                                                <div className="cl8 p-b-18">
+                                                    <span className="f1-s-3">
+                                                        Score: {news.score ?? 0}
+                                                    </span>
+                                                </div>
+
                                                 <span>
                                                     {moment(
                                                         news.updated_at

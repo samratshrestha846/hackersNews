@@ -72,6 +72,12 @@ export default function CategoryNewsPage() {
 
                                                 <div className="cl8 p-b-18">
                                                     <span className="f1-s-3">
+                                                        Score: {item.score ?? 0}
+                                                    </span>
+                                                </div>
+
+                                                <div className="cl8 p-b-18">
+                                                    <span className="f1-s-3">
                                                         {moment(
                                                             item.updated_at
                                                         ).fromNow()}
