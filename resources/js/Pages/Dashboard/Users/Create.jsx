@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import FormComponent from "./Components/FormComponent";
-import Dashboard from "@/Pages/Dashboard";
+import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 
 export default function CreateUser() {
     const { data, setData, post, errors } = useForm({
@@ -17,7 +17,7 @@ export default function CreateUser() {
     };
 
     return (
-        <Dashboard>
+        <DashboardLayout>
             <div className="bg-white rounded-lg shadow p-6 ">
                 <div className="bg-gray-100 px-4 py-3 rounded-t-lg border border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-700">
@@ -45,6 +45,6 @@ export default function CreateUser() {
                     </form>
                 </div>
             </div>
-        </Dashboard>
+        </DashboardLayout>
     );
 }

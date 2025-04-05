@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HackersNewsController;
 use App\Http\Controllers\NewsController;
@@ -32,15 +33,12 @@ Route::get('/tag/{slug}', [FrontendController::class, 'tagListPage']);
 Route::get('/search', [FrontendController::class, 'searchListPage']);
 Route::get('/news/{slug}', [FrontendController::class, 'detailPage']);
 
-Route::get('/news', [HackersNewsController::class, 'index'])->name('hacker-news.index');
-Route::get('/news/story/{id}', [HackersNewsController::class, 'show'])->name('hacker-news.show');
-Route::get('/news{category?}/{page?}', [HackersNewsController::class, 'index'])->name('hacker-news.index');
+Route::get('/hackers-news', [HackersNewsController::class, 'index'])->name('hacker-news.index');
+Route::get('/hackers-news/story/{id}', [HackersNewsController::class, 'show'])->name('hacker-news.show');
 
 // Dashboard
 Route::prefix('/dashboard')->group(function(){
-    Route::get('', function () {
-        return Inertia::render('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('users', UserController::class);
 
