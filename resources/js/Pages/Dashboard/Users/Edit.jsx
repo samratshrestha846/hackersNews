@@ -1,6 +1,6 @@
-import Dashboard from "@/Pages/Dashboard";
 import { useForm } from "@inertiajs/react";
 import FormComponent from "./Components/FormComponent";
+import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 
 export default function Edit({ user }) {
     const { data, setData, put, errors } = useForm({
@@ -14,7 +14,7 @@ export default function Edit({ user }) {
     };
 
     return (
-        <Dashboard>
+        <DashboardLayout>
             <div className="bg-white p-6 rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4">Edit User</h1>
 
@@ -36,6 +36,6 @@ export default function Edit({ user }) {
                     </button>
                 </form>
             </div>
-        </Dashboard>
+        </DashboardLayout>
     );
 }

@@ -1,6 +1,6 @@
 import { useForm } from "@inertiajs/react";
-import Dashboard from "@/Pages/Dashboard";
 import FormComponent from "./Components/FormComponent";
+import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 
 export default function CreateNews({ categories, tags }) {
     const { data, setData, post, errors } = useForm({
@@ -21,7 +21,7 @@ export default function CreateNews({ categories, tags }) {
     };
 
     return (
-        <Dashboard>
+        <DashboardLayout>
             <div className="bg-white rounded-lg shadow p-6">
                 <div className="bg-gray-100 px-4 py-3 rounded-t-lg border border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-700">
@@ -48,6 +48,6 @@ export default function CreateNews({ categories, tags }) {
                     </div>
                 </form>
             </div>
-        </Dashboard>
+        </DashboardLayout>
     );
 }

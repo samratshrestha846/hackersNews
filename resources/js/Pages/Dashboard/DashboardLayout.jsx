@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function Dashboard({ children }) {
+export default function DashboardLayout({ children }) {
     return (
         <div className="flex">
             {/* Sidebar */}
@@ -20,6 +20,7 @@ export default function Dashboard({ children }) {
                                 href={route("categories.index")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
+                                <i className="fas fa-th-large mr-2"></i>
                                 Category
                             </Link>
                         </li>
@@ -29,6 +30,7 @@ export default function Dashboard({ children }) {
                                 href={route("tags.index")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
+                                <i className="fas fa-tag mr-2"></i>
                                 Tag
                             </Link>
                         </li>
@@ -37,6 +39,7 @@ export default function Dashboard({ children }) {
                                 href={route("news.index")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
+                                <i className="fas fa-newspaper mr-2"></i>
                                 News
                             </Link>
                         </li>
@@ -46,6 +49,7 @@ export default function Dashboard({ children }) {
                                 href={route("profile.edit")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
+                                <i className="fas fa-user mr-2"></i>
                                 Profile
                             </Link>
                         </li>
@@ -55,6 +59,7 @@ export default function Dashboard({ children }) {
                                 href={route("users.index")}
                                 className="block py-2 px-4 rounded hover:bg-gray-700"
                             >
+                                <i className="fas fa-users mr-2"></i>
                                 Users
                             </Link>
                         </li>
@@ -63,7 +68,10 @@ export default function Dashboard({ children }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-6 bg-gray-100">{children}</main>
+            <main className="flex-1 p-6 bg-gray-100">
+                {/* Other Main Content */}
+                {children}
+            </main>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
-import Dashboard from "@/Pages/Dashboard";
+import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 
 export default function ResetPassword({ user }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -16,7 +16,7 @@ export default function ResetPassword({ user }) {
     };
 
     return (
-        <Dashboard>
+        <DashboardLayout>
             <div className="bg-white p-6 rounded-lg shadow">
                 <h1 className="text-2xl font-semibold mb-4">
                     Reset Password for {user.name}
@@ -88,6 +88,6 @@ export default function ResetPassword({ user }) {
                     </button>
                 </form>
             </div>
-        </Dashboard>
+        </DashboardLayout>
     );
 }

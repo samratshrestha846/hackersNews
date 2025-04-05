@@ -1,11 +1,11 @@
 import React from "react";
 import { usePage } from "@inertiajs/react";
-import Dashboard from "@/Pages/Dashboard";
+import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 
 const Show = () => {
     const { news } = usePage().props; // Assume the 'news' prop contains the news data from the backend
     return (
-        <Dashboard>
+        <DashboardLayout>
             <div className="bg-white rounded-lg shadow p-6">
                 <div className="bg-gray-100 px-4 py-3 rounded-t-lg border border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-700">
@@ -115,7 +115,7 @@ const Show = () => {
                     )}
                 </div>
             </div>
-        </Dashboard>
+        </DashboardLayout>
     );
 };
 

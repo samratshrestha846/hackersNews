@@ -61,6 +61,7 @@ export default function FormComponent({
                     <p className="text-red-500 text-sm mt-1">{errors.image}</p>
                 )}
             </div>
+            <div></div>
             {/* Categories Multi-Select */}
             <div>
                 <label className="block font-medium">Categories</label>
@@ -122,6 +123,7 @@ export default function FormComponent({
                 <label className="block font-medium">Active</label>
                 <input
                     type="checkbox"
+                    className="border border-black"
                     checked={data.is_active}
                     onChange={(e) => setData("is_active", e.target.checked)}
                 />
@@ -132,6 +134,7 @@ export default function FormComponent({
                 <label className="block font-medium">Featured</label>
                 <input
                     type="checkbox"
+                    className="border border-black"
                     checked={data.is_featured}
                     onChange={(e) => setData("is_featured", e.target.checked)}
                 />
