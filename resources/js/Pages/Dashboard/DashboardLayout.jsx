@@ -43,6 +43,15 @@ export default function DashboardLayout({ children }) {
                                 News
                             </Link>
                         </li>
+                        <li className="mb-2">
+                            <Link
+                                href={route("subscribers.index")}
+                                className="block py-2 px-4 rounded hover:bg-gray-700"
+                            >
+                                <i className="fas fa-newspaper mr-2"></i>
+                                Subscribers
+                            </Link>
+                        </li>
 
                         <li className="mb-2">
                             <Link

@@ -7,6 +7,7 @@ export default function Dashboard({
     tagsCount,
     newsCount,
     usersCount,
+    subscribersCount,
 }) {
     return (
         <DashboardLayout>
@@ -61,6 +62,20 @@ export default function Dashboard({
                         className="text-blue-600 hover:underline"
                     >
                         View Users
+                    </Link>
+                </div>
+
+                <div className="bg-white p-6 rounded shadow">
+                    <h3 className="text-lg font-semibold flex items-center">
+                        <i className="fas fa-users mr-2"></i> Newsletter
+                        Subscribers
+                    </h3>
+                    <p className="text-2xl font-bold">{subscribersCount}</p>
+                    <Link
+                        href={route("subscribers.index")}
+                        className="text-blue-600 hover:underline"
+                    >
+                        View Subscribers
                     </Link>
                 </div>
             </div>
