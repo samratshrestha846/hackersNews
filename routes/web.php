@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HackersNewsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsLetterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TagController;
@@ -32,6 +33,7 @@ Route::get('/category/{slug}', [FrontendController::class, 'listPage']);
 Route::get('/tag/{slug}', [FrontendController::class, 'tagListPage']);
 Route::get('/search', [FrontendController::class, 'searchListPage']);
 Route::get('/news/{slug}', [FrontendController::class, 'detailPage']);
+Route::post('/subscribe', [FrontendController::class, 'subscribe']);
 
 Route::get('/hackers-news', [HackersNewsController::class, 'index'])->name('hacker-news.index');
 Route::get('/hackers-news/story/{id}', [HackersNewsController::class, 'show'])->name('hacker-news.show');
@@ -57,6 +59,8 @@ Route::prefix('/dashboard')->group(function(){
     Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
     Route::post('/news/{news}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+    Route::get('/subscribers', [NewsLetterController::class, 'index'])->name('subscribers.index');
 });
 
 require __DIR__.'/auth.php';

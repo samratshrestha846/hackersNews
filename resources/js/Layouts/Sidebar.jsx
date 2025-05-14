@@ -1,8 +1,31 @@
-import { usePage } from "@inertiajs/react";
-import React from "react";
+import { useForm, usePage } from "@inertiajs/react";
+import React, { useState } from "react";
 
 export default function Sidebar() {
-    const { featuredNews, tags } = usePage().props;
+    const { featuredNews, tags, flash } = usePage().props;
+
+    const { data, setData, post, processing, reset, errors } = useForm({
+        email: "",
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        post("/subscribe", {
+            preserveScroll: true,
+            onSuccess: () => {
+                {
+                    errors.email && (
+                        <div className="text-red-500 text-sm mt-2">
+                            {errors.email}
+                        </div>
+                    );
+                }
+                reset();
+                alert("Subscribed successfully! 🎉");
+            },
+        });
+    };
     return (
         <div className="col-md-4 col-lg-4 p-b-80">
             <div className="p-l-10 p-rl-0-sr991">
@@ -15,18 +38,32 @@ export default function Sidebar() {
                         times a month.
                     </p>
 
-                    <form className="size-a-9 pos-relative">
+                    <form
+                        className="size-a-9 pos-relative"
+                        onSubmit={handleSubmit}
+                    >
                         <input
                             className="s-full f1-m-6 cl6 plh9 p-l-20 p-r-55"
                             type="text"
                             name="email"
+                            value={data.email}
+                            onChange={(e) => setData("email", e.target.value)}
                             placeholder="Email"
                         />
 
-                        <button className="size-a-10 flex-c-c ab-t-r fs-16 cl9 hov-cl10 trans-03">
+                        <button
+                            className="size-a-10 flex-c-c ab-t-r fs-16 cl9 hov-cl10 trans-03"
+                            type="submit"
+                            disabled={processing}
+                        >
                             <i className="fa fa-arrow-right"></i>
                         </button>
                     </form>
+                    {errors.email && (
+                        <div className="text-red-500 text-sm mt-2">
+                            {errors.email}
+                        </div>
+                    )}
                 </div>
 
                 {/* Most Featured Post  */}

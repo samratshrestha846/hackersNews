@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\News;
+use App\Models\NewsletterSubscriber;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -127,5 +128,15 @@ class FrontendController extends Controller
         return Inertia::render('DetailPage', [
             'news' => $news
         ]);
+    }
+
+    public function subscribe(Request $request)
+    {
+        $request->validate(['email' => 'required|email|unique:newsletter_subscribers,email']);
+
+        NewsletterSubscriber::create(['email' => $request->email]);
+
+        return redirect()->back()->with(['success', 'Successfully Subscribed']);
+
     }
 }
