@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewsCreated;
 use App\Models\News;
 use App\Models\Category;
 use App\Models\Tag;
@@ -60,6 +61,11 @@ class NewsController extends Controller
         $news->categories()->sync($validated['categories'] ?? []);
         $news->tags()->sync($validated['tags'] ?? []);
 
+        // Fire event if news is active
+        if ($news->is_active == true) {
+            NewsCreated::dispatch($news);
+        }
+
         return redirect()->route('news.index')->with('success', 'News created successfully.');
     }
 
@@ -93,6 +99,9 @@ class NewsController extends Controller
             'score' => 'required|numeric'
         ]);
 
+        $wasActive = $news->is_active;
+        $isNowActive = $validated['is_active'] == true;
+
         $validated['slug'] = Str::slug($validated['title']);
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('uploads/News', 'uploads');
@@ -102,6 +111,10 @@ class NewsController extends Controller
         $news->update($validated);
         $news->categories()->sync($validated['categories'] ?? []);
         $news->tags()->sync($validated['tags'] ?? []);
+
+        if ($isNowActive && !$wasActive) {
+            NewsCreated::dispatch($news);
+        }
 
         return redirect()->route('news.index')->with('success', 'News updated successfully.');
     }
