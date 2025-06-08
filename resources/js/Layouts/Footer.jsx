@@ -32,7 +32,11 @@ export default function Footer() {
                                 </p>
 
                                 <p className="f1-s-1 cl11 p-b-16">
-                                    Any questions? Call us on (+1) 98 511 515 12
+                                    Any questions? Call us on (+1) 98 511 515 12{" "}
+                                    <br></br>
+                                    <a href="feedback">
+                                        Click here to send feedback
+                                    </a>
                                 </p>
 
                                 <div className="p-t-15">

@@ -52,6 +52,15 @@ export default function DashboardLayout({ children }) {
                                 Subscribers
                             </Link>
                         </li>
+                        <li className="mb-2">
+                            <Link
+                                href={route("feedbacks.index")}
+                                className="block py-2 px-4 rounded hover:bg-gray-700"
+                            >
+                                <i className="fas fa-newspaper mr-2"></i>
+                                Feedbacks
+                            </Link>
+                        </li>
 
                         <li className="mb-2">
                             <Link
