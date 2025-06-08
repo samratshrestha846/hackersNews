@@ -95,6 +95,12 @@
             <p>Hello,</p>
             <p>You're receiving this email because you subscribed to our newsletter.</p>
 
+            <p>
+                <a href="{{ url('/unsubscribe?email=' . urlencode($subscriber->email)) }}" class="unsubscribe">
+                    Unsubscribe
+                </a>
+            </p>
+
             <p>© {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
         </div>
     </div>

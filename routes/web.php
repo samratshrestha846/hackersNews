@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HackersNewsController;
 use App\Http\Controllers\NewsController;
@@ -28,18 +29,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', [FrontendController::class, 'index']);
+Route::get('/', [FrontendController::class, 'index'])->name('home   ');
 Route::get('/category/{slug}', [FrontendController::class, 'listPage']);
 Route::get('/tag/{slug}', [FrontendController::class, 'tagListPage']);
 Route::get('/search', [FrontendController::class, 'searchListPage']);
 Route::get('/news/{slug}', [FrontendController::class, 'detailPage']);
 Route::post('/subscribe', [FrontendController::class, 'subscribe']);
+Route::get('/unsubscribe', [FrontendController::class, 'unsubscribe'])->name('unsubscribe');
+Route::get('/feedback', [FrontendController::class, 'feedback'])->name('feedback');
+Route::post('/feedback', [FrontendController::class, 'storeFeedback']);
 
 Route::get('/hackers-news', [HackersNewsController::class, 'index'])->name('hacker-news.index');
 Route::get('/hackers-news/story/{id}', [HackersNewsController::class, 'show'])->name('hacker-news.show');
 
 // Dashboard
-Route::prefix('/dashboard')->group(function(){
+Route::prefix('/dashboard')->middleware('auth')->group(function(){
     Route::get('', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('users', UserController::class);
@@ -61,6 +65,8 @@ Route::prefix('/dashboard')->group(function(){
     Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/subscribers', [NewsLetterController::class, 'index'])->name('subscribers.index');
+
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedbacks.index');
 });
 
 require __DIR__.'/auth.php';

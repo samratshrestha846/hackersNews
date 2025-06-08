@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Feedback;
 use App\Models\News;
 use App\Models\NewsletterSubscriber;
 use App\Models\Tag;
@@ -138,5 +139,41 @@ class FrontendController extends Controller
 
         return redirect()->back()->with(['success', 'Successfully Subscribed']);
 
+    }
+
+    public function unsubscribe(Request $request)
+    {
+        $email = $request->query('email');
+
+        if (!$email) {
+            return redirect()->route('home')->with('error', 'Invalid request');
+        }
+
+        $subscriber = NewsletterSubscriber::where('email', $email)->first();
+
+        if (!$subscriber) {
+            return redirect()->route('home')->with('error', 'Subscriber not found');
+        }
+
+        $subscriber->delete();
+
+        return redirect()->route('home')->with('success', 'Unsubscribed for News Letter');
+    }
+
+    public function feedback()
+    {
+        return Inertia::render('FeedbackPage');
+    }
+
+    public function storeFeedback(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string|min:5',
+        ]);
+
+        Feedback::create($validated);
+
+        return redirect()->route('feedback')->with('success', 'Thank you for your feedback!');
     }
 }

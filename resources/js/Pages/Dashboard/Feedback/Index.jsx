@@ -2,7 +2,7 @@ import DashboardLayout from "@/Pages/Dashboard/DashboardLayout";
 import { Link, usePage, router } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index({ news, search }) {
+export default function Index({ feedbacks, search }) {
     const { flash } = usePage().props;
     const [query, setQuery] = useState(search || "");
 
@@ -11,22 +11,16 @@ export default function Index({ news, search }) {
         setQuery(newQuery);
 
         router.get(
-            route("news.index"),
+            route("feedbacks.index"),
             { search: newQuery },
             { preserveState: true, replace: true }
         );
     };
 
-    const handleDelete = (id) => {
-        if (confirm("Are you sure you want to delete this news?")) {
-            router.delete(route("news.destroy", id));
-        }
-    };
-
     return (
         <DashboardLayout>
             <div className="bg-white p-6 rounded-lg shadow-md">
-                <h1 className="text-2xl font-semibold mb-4">News</h1>
+                <h1 className="text-2xl font-semibold mb-4">Feedbacks</h1>
 
                 {flash?.success && (
                     <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
@@ -40,59 +34,30 @@ export default function Index({ news, search }) {
                             type="text"
                             value={query}
                             onChange={handleSearch}
-                            placeholder="Search news..."
+                            placeholder="Search Feedbacks..."
                             className="border p-2 rounded w-full"
                         />
                     </div>
-                    <Link
-                        href={route("news.create")}
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                    >
-                        + Add News
-                    </Link>
                 </div>
 
                 <table className="w-full bg-white shadow-md rounded-lg overflow-hidden">
                     <thead>
                         <tr className="bg-gray-200 text-left">
-                            <th className="p-3">Title</th>
-                            <th className="p-3">Slug</th>
-                            <th className="p-3">Score</th>
-                            <th className="p-3">Actions</th>
+                            <th className="p-3">Name</th>
+                            <th className="p-3">Email</th>
+                            <th className="p-3">Message</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {news.data.length > 0 ? (
-                            news.data.map((item) => (
+                        {feedbacks.data.length > 0 ? (
+                            feedbacks.data.map((feedback) => (
                                 <tr
-                                    key={item.id}
+                                    key={feedback.id}
                                     className="border-t hover:bg-gray-100"
                                 >
-                                    <td className="p-3">{item.title}</td>
-                                    <td className="p-3">{item.slug}</td>
-                                    <td className="p-3">{item.score}</td>
-                                    <td className="p-3 flex space-x-2">
-                                        <Link
-                                            href={route("news.show", item.id)} // route to show page
-                                            className="text-green-500 hover:underline"
-                                        >
-                                            Show
-                                        </Link>
-                                        <Link
-                                            href={route("news.edit", item.id)}
-                                            className="text-blue-500 hover:underline"
-                                        >
-                                            Edit
-                                        </Link>
-                                        <button
-                                            onClick={() =>
-                                                handleDelete(item.id)
-                                            }
-                                            className="text-red-500 hover:underline"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
+                                    <td className="p-3">{feedback.name}</td>
+                                    <td className="p-3">{feedback.email}</td>
+                                    <td className="p-3">{feedback.message}</td>
                                 </tr>
                             ))
                         ) : (
@@ -101,7 +66,7 @@ export default function Index({ news, search }) {
                                     colSpan="3"
                                     className="p-3 text-center text-gray-500"
                                 >
-                                    No news found.
+                                    No feedback found.
                                 </td>
                             </tr>
                         )}
@@ -109,7 +74,7 @@ export default function Index({ news, search }) {
                 </table>
 
                 <div className="mt-4">
-                    {news.links.map((link) => (
+                    {feedbacks.links.map((link) => (
                         <Link
                             key={link.label}
                             href={link.url}
