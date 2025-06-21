@@ -58,6 +58,8 @@ export default function Index({ tags, search }) {
                             <th className="p-3">Title</th>
                             <th className="p-3">Slug</th>
                             <th className="p-3">Is Active</th>
+                            <th className="p-3">Visitor Count</th>
+                            <th className="p-3">Unique Visitor Count</th>
                             <th className="p-3">Actions</th>
                         </tr>
                     </thead>
@@ -70,6 +72,8 @@ export default function Index({ tags, search }) {
                                 >
                                     <td className="p-3">{tag.title}</td>
                                     <td className="p-3">{tag.slug}</td>
+                                    <td className="p-3">{tag.views_count}</td>
+                                    <td className="p-3">{tag.unique_views_count}</td>
                                     <td className="p-3">
                                         {tag.is_active ? "Yes" : "No"}
                                     </td>
