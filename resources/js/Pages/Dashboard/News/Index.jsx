@@ -58,6 +58,8 @@ export default function Index({ news, search }) {
                             <th className="p-3">Title</th>
                             <th className="p-3">Slug</th>
                             <th className="p-3">Score</th>
+                            <th className="p-3">Visitor Count</th>
+                            <th className="p-3">Unique Visitor Count</th>
                             <th className="p-3">Actions</th>
                         </tr>
                     </thead>
@@ -71,6 +73,10 @@ export default function Index({ news, search }) {
                                     <td className="p-3">{item.title}</td>
                                     <td className="p-3">{item.slug}</td>
                                     <td className="p-3">{item.score}</td>
+                                    <td className="p-3">{item.views_count}</td>
+                                    <td className="p-3">
+                                        {item.unique_views_count}
+                                    </td>
                                     <td className="p-3 flex space-x-2">
                                         <Link
                                             href={route("news.show", item.id)} // route to show page

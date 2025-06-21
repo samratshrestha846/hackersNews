@@ -17,6 +17,14 @@ const Show = () => {
                         <h3 className="font-medium text-gray-700">Score</h3>
                         <p>{news.score}</p>
                     </div>
+                    <div className="mb-4">
+                        <h3 className="font-medium text-gray-700">Score</h3>
+                        <p>{news.views_count}</p>
+                    </div>
+                    <div className="mb-4">
+                        <h3 className="font-medium text-gray-700">Score</h3>
+                        <p>{news.unique_views_count}</p>
+                    </div>
                     {/* Image */}
                     {news.image && (
                         <div className="mb-4">

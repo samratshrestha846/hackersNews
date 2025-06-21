@@ -48,6 +48,7 @@ class FrontendController extends Controller
     {
         // Get category by slug
         $category = Category::where('slug', $slug)->firstOrFail();
+        views($category)->record();
 
         // Get news related to this category and apply pagination
         $news = $category->news()
@@ -74,6 +75,7 @@ class FrontendController extends Controller
     {
         // Get tag by slug
         $tag = Tag::where('slug', $slug)->firstOrFail();
+        views($tag)->record();
 
         // Get news related to this category and apply pagination
         $news = $tag->news()
@@ -126,6 +128,7 @@ class FrontendController extends Controller
     public function detailPage(string $slug)
     {
         $news = News::with('tags', 'categories')->where('slug', $slug)->first();
+        views($news)->record();
         return Inertia::render('DetailPage', [
             'news' => $news
         ]);
